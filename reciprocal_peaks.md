@@ -59,4 +59,4 @@ bedmap --ec --delim '\t' --echo --indicator --echo-map-id \
 ```
 
 #### Analyzing Reciprocal Peaks in Jupyter Notebook
-Use the "Cactus447way_april_index" Jupyter notebook, starting from the sections titled "Some Other Reciprocal Peaks Checks" and continue through the end of the notebook.
+Use the "Cactus447way_april_index-latest_version_reciprcocal_peaks" Jupyter notebook.
