@@ -25,6 +25,7 @@ Performed in batch for all species using `/net/seq/data2/projects/aabisheva/DHS_
 #### Sorting Data Before Using `bedmap --indicator`
 - **Mouse Masterlist:**
     ```bash
+    module load bedops/2.4.26
     cp /net/seq/data2/projects/ENCODE4Plus/indexes/index_altius_mouse_24-04-17/output/masterlist.only_autosomes.filtered.bed \
     /net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/mouse.masterlist.only_autosomes.filtered.bed
     sort-bed /net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/mouse.masterlist.only_autosomes.filtered.bed > \
