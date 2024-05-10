@@ -58,6 +58,38 @@ bedmap --ec --delim '\t' --echo --indicator --echo-map-id \
 /net/seq data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/mouse.masterlist.only_autosomes.filtered_sorted.bed > \
 /net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/intersection_2.txt
 ```
+#### Analyzing Reciprocal Peaks in the Jupyter Notebook
+Use the "Cactus447way_april_index-latest_version_reciprocal_peaks" Jupyter notebook.
 
-#### Analyzing Reciprocal Peaks in Jupyter Notebook
-Use the "Cactus447way_april_index-latest_version_reciprcocal_peaks" Jupyter notebook.
+To examine how these newly identified peaks intersect with reciprocal peaks identified in "Mouse Regulatory...", several methods can be employed. For instance, you can use the UCSC LiftOver tool:
+
+- [UCSC LiftOver Tool](https://genome.ucsc.edu/cgi-bin/hgLiftOver)
+
+Load the following file into the LiftOver tool:
+```plaintext
+/net/seq/data2/projects/jvierstra/mouse.human.resubmission/build/master-peaks-mapped/reciprocal-peaks.human.bed
+```
+Note that it uses the hg19 annotation. Convert it to hg38 and save the results to:
+```plaintext
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38.bed
+```
+
+Next, sort the converted file:
+```bash
+sort-bed /net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38.bed >\
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38_sorted.bed
+```
+
+Then use `bedmap --indicator` to identify intersections:
+```bash
+bedmap --ec --delim '\t' --echo --indicator --echo-map-id \
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38_sorted.bed \
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/new_approach_05_07/reciprocal-peaks.human.bed >\
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect.txt
+```
+
+To analyze the intersections using bash:
+```bash
+awk '{sum += $5} END {print "Number of old reciprocal peaks (in hg19) which have intersection with new reciprocal peaks (in hg38) - another algorithm:", sum}' \
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect.txt
+```
