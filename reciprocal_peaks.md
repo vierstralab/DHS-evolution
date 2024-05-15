@@ -61,6 +61,8 @@ bedmap --ec --delim '\t' --echo --indicator --echo-map-id \
 #### Analyzing Reciprocal Peaks in the Jupyter Notebook
 Use the "Cactus447way_april_index-latest_version_reciprocal_peaks" Jupyter notebook.
 
+### Additional testing
+
 To examine how these newly identified peaks intersect with reciprocal peaks identified in "Mouse Regulatory...", several methods can be employed. For instance, you can use the UCSC LiftOver tool:
 
 - [UCSC LiftOver Tool](https://genome.ucsc.edu/cgi-bin/hgLiftOver)
@@ -83,13 +85,13 @@ sort-bed /net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus44
 Then use `bedmap --indicator` to identify intersections:
 ```bash
 bedmap --ec --delim '\t' --echo --indicator --echo-map-id \
-/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38_sorted.bed \
-/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/new_approach_05_07/reciprocal-peaks.human.bed >\
-/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect.txt
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/new_approach_05_07/reciprocal-peaks.human.bed \
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_human_hg19_to_hg38_sorted.bed  >\
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect_3.txt
 ```
 
 To analyze the intersections using bash:
 ```bash
 awk '{sum += $5} END {print "Number of old reciprocal peaks (in hg19) which have intersection with new reciprocal peaks (in hg38) - another algorithm:", sum}' \
-/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect.txt
+/net/seq/data2/projects/aabisheva/DHS_evolution/benchmark/hg38/cactus447way_reciprocal_mapping/uscs_liftover_intersect_3.txt
 ```
